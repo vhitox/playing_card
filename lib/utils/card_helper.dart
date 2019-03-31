@@ -14,7 +14,8 @@ class CardHelper{
     print("nuevo valor de guia ${rList}");
     return rList;
   }
-  List<List> insertData(List list, List<List> mat){
+  List<List> insertData(List list){
+    List<List<int>> mat = new List.generate(7, (i) => []);
     var c = 0;
     for(var i = 0; i<= 6; i++){
       for(var j = 0; j<= 2; j++){
@@ -22,7 +23,7 @@ class CardHelper{
         c++;
       }
     }
-    mat.forEach((element) => print(element));
+    //mat.forEach((element) => print(element));
     return mat;
   }
 
@@ -34,7 +35,7 @@ class CardHelper{
         m.add(mat[g][guia[f]]);
       }
     }
-    print(m);
+    //print(m);
     return m;
   }
 }
