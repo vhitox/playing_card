@@ -19,29 +19,7 @@ class Cards extends StatefulWidget {
 }
 
 class _CardsState extends State<Cards> {
-  List card_list = [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-    21
-  ];
+  List card_list = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21];
   List<List<int>> matriz = new List.generate(7, (i) => []);
   CardHelper cHelper = new CardHelper();
   List c;
@@ -53,13 +31,10 @@ class _CardsState extends State<Cards> {
       c = cHelper.orderSelected(c, selected);
       a_repartir = cHelper.joinMatriz(matriz, c, selected);
       matriz = cHelper.insertData(a_repartir);
-    });
-    print(a_repartir);
-    matriz.forEach((element) => print(element));
-    print(veces);
+    });        
     if (veces == 3) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => YourCard("${matriz[3][1]}")));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => YourCard("${matriz[3][1]}")));
     }
   }
 
@@ -69,9 +44,7 @@ class _CardsState extends State<Cards> {
     card_list.shuffle();
     matriz = cHelper.insertData(card_list);
     c = [0, 1, 2];
-    a_repartir = card_list;
-    print(a_repartir);
-    matriz.forEach((element) => print(element));
+    a_repartir = card_list;        
   }
 
   @override
@@ -100,7 +73,7 @@ class _CardsState extends State<Cards> {
           ],
         ),
         appBar: AppBar(
-          title: Text("Play Cards"),
+          title: Text("Select a column"),
         ),
         body: Container(
           child: GridView.count(
@@ -111,6 +84,7 @@ class _CardsState extends State<Cards> {
               children: _repartir(a_repartir)),
         ));
   }
+
   List<Widget> _repartir(List cards) {
     List<Widget> listCards = new List<Widget>();
     cards.forEach((e) {
@@ -131,16 +105,34 @@ class YourCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        bottomNavigationBar: ButtonBar(
+          children: <Widget>[
+            RaisedButton(
+              child: Text("Volver a iniciar"),
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => MyApp()));
+              },
+            )
+          ],
+        ),
         appBar: AppBar(
           title: Text("Your result"),
         ),
         body: Container(
-          child: Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/${yourcard}.jpg"))),
-          ),
-        ),
+            child: Stack(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.only(top: 20.0, left: 20.0),
+              child: Text("La carta elegida es:"),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/${yourcard}.jpg"))),
+            ),
+          ],
+        )),
       ),
     );
   }

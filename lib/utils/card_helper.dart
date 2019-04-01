@@ -6,12 +6,10 @@ class CardHelper{
     List past = new List.from(list);
     List rList = new List(3);
     rList[1] = s;
-    past.remove(s);
-    //past.shuffle();
+    past.remove(s);    
     rList.first = past[0];
     past.remove(past[0]);
-    rList.last = past[0];
-    print("nuevo valor de guia ${rList}");
+    rList.last = past[0];    
     return rList;
   }
   List<List> insertData(List list){
