@@ -22,8 +22,7 @@ class CardHelper{
         mat[i].add(list[c]);
         c++;
       }
-    }
-    //mat.forEach((element) => print(element));
+    }    
     return mat;
   }
 
@@ -34,8 +33,7 @@ class CardHelper{
       for(var g = 0; g<=6; g++){
         m.add(mat[g][guia[f]]);
       }
-    }
-    //print(m);
+    }    
     return m;
   }
 }
