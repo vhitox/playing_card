@@ -23,7 +23,6 @@ class CardHelper{
     }    
     return mat;
   }
-
   List joinMatriz(List<List> mat, List guia, var select){
     guia = orderSelected(guia, select);
     List m = new List();
