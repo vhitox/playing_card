@@ -20,29 +20,7 @@ class Cards extends StatefulWidget {
 
 class _CardsState extends State<Cards> {
   final ScrollController _scrollController = ScrollController();
-  List card_list = [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-    21
-  ];
+  List card_list = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21];
   List<List<int>> matriz = new List.generate(7, (i) => []);
   CardHelper cHelper = new CardHelper();
   List c;
@@ -56,8 +34,11 @@ class _CardsState extends State<Cards> {
       matriz = cHelper.insertData(a_repartir);
     });
     if (veces == 3) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => YourCard("${matriz[3][1]}")));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  YourCard("${matriz[3][1]}", "${matriz[3][1]}")));
     }
   }
 
@@ -73,7 +54,7 @@ class _CardsState extends State<Cards> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: ButtonBar(
+        bottomNavigationBar: ButtonBar(                    
           alignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             RaisedButton(
@@ -88,6 +69,7 @@ class _CardsState extends State<Cards> {
               },
             ),
             RaisedButton(
+              color: Colors.green,
               child: Text("tres"),
               onPressed: () {
                 _selectColumn(2);
@@ -95,15 +77,23 @@ class _CardsState extends State<Cards> {
             ),
           ],
         ),
-        appBar: AppBar(
-          title: Text("Select a column"),
-        ),
-        body: CustomScrollView(
+         appBar: AppBar(
+           title: Text("21 Card Card Trick"),
+           backgroundColor: Colors.black,
+         ),
+        body: Container(
+          decoration: BoxDecoration(color: Colors.black),
+          child: CustomScrollView(                    
           controller: _scrollController,
           slivers: <Widget>[
             SliverToBoxAdapter(
-              child: Text(
-                  "Piense en una de las cartas y seleccione la columna donde se encuentra"),
+              child: Container(
+                padding: EdgeInsets.only(top: 10.0, left: 20.0),
+                child: Text(
+                  "Think in a card, and select his column",                  
+                  style: TextStyle(color: Colors.white,),
+                  ),
+              ),
             ),
             SliverGrid(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -111,25 +101,25 @@ class _CardsState extends State<Cards> {
               ),
               delegate:
                   SliverChildBuilderDelegate((BuildContext context, int index) {
-                return Transform.translate(
-                  offset: Offset(10, 50),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(
-                                "assets/images/${a_repartir[index]}.jpg"))),
-                  ),
+                print("card${index}");
+                return Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(
+                              "assets/images/${a_repartir[index]}.jpg"))),
                 );
               }, childCount: a_repartir.length),
             )
           ],
+        ),
         ));
   }
 }
 
 class YourCard extends StatelessWidget {
+  String heroTag;
   String yourcard;
-  YourCard(this.yourcard);
+  YourCard(this.yourcard, this.heroTag);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -155,11 +145,15 @@ class YourCard extends StatelessWidget {
               padding: EdgeInsets.only(top: 20.0, left: 20.0),
               child: Text("La carta elegida es:"),
             ),
-            Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/${yourcard}.jpg"))),
-            ),
+            Center(
+              child: Container(
+                width: 150.0,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("assets/images/${yourcard}.jpg"),
+                        fit: BoxFit.fitWidth)),
+              ),
+            )
           ],
         )),
       ),
