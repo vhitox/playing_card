@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:play_cards/utils/card_helper.dart';
 
 void main() => runApp(MyApp());
-
+final Color bl = Colors.black;
+final Text title = Text("21 Card Card trick");
+final Color wh = Colors.white;
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class _CardsState extends State<Cards> {
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  YourCard("${matriz[3][1]}", "${matriz[3][1]}")));
+                  YourCard("${matriz[3][1]}")));
     }
   }
 
@@ -54,35 +56,21 @@ class _CardsState extends State<Cards> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: ButtonBar(                    
-          alignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            RaisedButton(
-                child: Text("uno"),
-                onPressed: () {
-                  _selectColumn(0);
-                }),
-            RaisedButton(
-              child: Text("dos"),
-              onPressed: () {
-                _selectColumn(1);
-              },
-            ),
-            RaisedButton(
-              color: Colors.green,
-              child: Text("tres"),
-              onPressed: () {
-                _selectColumn(2);
-              },
-            ),
-          ],
+        floatingActionButton: Container(
+        margin: EdgeInsets.only(right: 14.0),
+        width: 300.0,
+        child: Row(     
+        mainAxisSize: MainAxisSize.min,   
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: _buttons(),
         ),
+      ),
          appBar: AppBar(
-           title: Text("21 Card Card Trick"),
-           backgroundColor: Colors.black,
+           title: title,
+           backgroundColor: bl,
          ),
         body: Container(
-          decoration: BoxDecoration(color: Colors.black),
+          decoration: BoxDecoration(color: bl),
           child: CustomScrollView(                    
           controller: _scrollController,
           slivers: <Widget>[
@@ -91,7 +79,7 @@ class _CardsState extends State<Cards> {
                 padding: EdgeInsets.only(top: 10.0, left: 20.0),
                 child: Text(
                   "Think in a card, and select his column",                  
-                  style: TextStyle(color: Colors.white,),
+                  style: TextStyle(color: wh,),
                   ),
               ),
             ),
@@ -114,36 +102,49 @@ class _CardsState extends State<Cards> {
         ),
         ));
   }
+  List<Widget> _buttons(){
+    List<Widget> retB = List<Widget>();
+    for(var i = 0; i<=2; i++){
+      retB.add(FloatingActionButton(
+              heroTag: "${i}",
+              backgroundColor: Colors.black54,
+              child: Icon(Icons.arrow_upward), onPressed: () {
+                _selectColumn(i);
+              },
+            ));
+    }
+    return retB;
+  }
 }
 
-class YourCard extends StatelessWidget {
-  String heroTag;
+class YourCard extends StatelessWidget {  
   String yourcard;
-  YourCard(this.yourcard, this.heroTag);
+  YourCard(this.yourcard);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        bottomNavigationBar: ButtonBar(
-          children: <Widget>[
-            RaisedButton(
-              child: Text("Volver a iniciar"),
-              onPressed: () {
-                Navigator.push(
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.white54,
+          child: IconButton(            
+            icon: Icon(Icons.arrow_back_ios), onPressed: () {
+              Navigator.push(
                     context, MaterialPageRoute(builder: (context) => MyApp()));
-              },
-            )
-          ],
+            },
+          ),
         ),
+        
         appBar: AppBar(
-          title: Text("Your result"),
+          title: title,
+          backgroundColor: bl,
         ),
         body: Container(
+          decoration: BoxDecoration(color: bl),
             child: Stack(
           children: <Widget>[
             Container(
               padding: EdgeInsets.only(top: 20.0, left: 20.0),
-              child: Text("La carta elegida es:"),
+              child: Text("This your card:", style: TextStyle(color: wh),),
             ),
             Center(
               child: Container(
