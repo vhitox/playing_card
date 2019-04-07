@@ -1,8 +1,8 @@
-class CardHelper{
-  static final CardHelper _instance=new CardHelper.internal();
-  factory CardHelper()=>_instance;
-  CardHelper.internal();
-  List orderSelected(List list, int s){
+class CHelper{
+  static final CHelper _instance=new CHelper.internal();
+  factory CHelper()=>_instance;
+  CHelper.internal();
+  List order(List list, int s){
     List past=new List.from(list);
     List rList=new List(3);
     rList[1]=s;
@@ -12,7 +12,7 @@ class CardHelper{
     rList.last=past[0];    
     return rList;
   }
-  List<List> insertData(List list){
+  List<List> dataIn(List list){
     List<List<int>> mat=new List.generate(7, (i)=>[]);
     var c=0;
     for(var i=0; i<=6; i++){
@@ -23,12 +23,12 @@ class CardHelper{
     }    
     return mat;
   }
-  List joinMatriz(List<List> mat, List guia, var select){
-    guia=orderSelected(guia, select);
+  List joinMatriz(List<List> mat, List guid, var chs){
+    guid=order(guid, chs);
     List m=new List();
     for(var f=0; f<=2; f++){
       for(var g=0; g<=6; g++){
-        m.add(mat[g][guia[f]]);
+        m.add(mat[g][guid[f]]);
       }
     }    
     return m;
